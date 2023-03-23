@@ -5,20 +5,23 @@ from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 import logging
 logging.basicConfig(filename="scrapper.log" , level=logging.INFO)
+import pymongo
 
 app = Flask(__name__)
 
-@app.route("/", methods = ['GET'])
-def homepage():
+@app.route("/", methods = ['GET'])  # here we are creating a homepage which will run 'index.txt' file and take a text i.e
+def homepage():                            # product's name as input and submit that by clicking on search.
     return render_template("index.html")
 
-@app.route("/review" , methods = ['POST' , 'GET'])
-def index():
-    if request.method == 'POST':
-        try:
-            searchString = request.form['content'].replace(" ","")
-            flipkart_url = "https://www.flipkart.com/search?q=" + searchString
-            uClient = uReq(flipkart_url)
+@app.route("/review" , methods = ['POST' , 'GET']) # '/review' route is called when we click on search button as we have return 
+def index():                                      # from class that we called action that automatically call '/review' route then
+    if request.method == 'POST':                  # it will exceute the function written in that. 
+        try:                                      # here we have done exception handling
+            searchString = request.form['content'].replace(" ","")   # here we are replacing space given in searching string with
+                                                                      # non space to get searching string.
+            flipkart_url = "https://www.flipkart.com/search?q=" + searchString # here we are appending flipcart url with 
+                                                                               #  this serarching  string 
+            uClient = uReq(flipkart_url)  # bellow this all code is same that we have done in web scraping class
             flipkartPage = uClient.read()
             uClient.close()
             flipkart_html = bs(flipkartPage, "html.parser")
@@ -40,14 +43,14 @@ def index():
             for commentbox in commentboxes:
                 try:
                     #name.encode(encoding='utf-8')
-                    name = commentbox.div.div.find_all('p', {'class': '_2sc7ZR _2V5EHH'})[0].text
+                    name = commentbox.div.div.find_all('p', {'class': '_2sc7ZR _2V5EHH'})[0].text # to get name of review writer
 
                 except:
                     logging.info("name")
 
                 try:
                     #rating.encode(encoding='utf-8')
-                    rating = commentbox.div.div.div.div.text
+                    rating = commentbox.div.div.div.div.text          # to get ratings
 
 
                 except:
@@ -56,7 +59,7 @@ def index():
 
                 try:
                     #commentHead.encode(encoding='utf-8')
-                    commentHead = commentbox.div.div.div.p.text
+                    commentHead = commentbox.div.div.div.p.text  # to get comment heading in reviews
 
                 except:
                     commentHead = 'No Comment Heading'
@@ -64,14 +67,27 @@ def index():
                 try:
                     comtag = commentbox.div.div.find_all('div', {'class': ''})
                     #custComment.encode(encoding='utf-8')
-                    custComment = comtag[0].div.text
+                    custComment = comtag[0].div.text     # to get actual comments
                 except Exception as e:
                     logging.info(e)
 
                 mydict = {"Product": searchString, "Name": name, "Rating": rating, "CommentHead": commentHead,
-                          "Comment": custComment}
-                reviews.append(mydict)
+                          "Comment": custComment} # here we are creating a dict and keeping all data in that dict .we are
+                                                 # we are creating everytime new dict .
+                reviews.append(mydict)   # and apending that dict to a list called reviews.
             logging.info("log my final result {}".format(reviews))
+
+            # for estabulushing connection to mongoDB copy url from mongoDB and paste it .and chnage its passward with your mongoDB 
+            # passward.i.e ('shindesanjana2003')
+            
+            client = pymongo.MongoClient("mongodb+srv://shindesanjana2003:shindesanjana2003@cluster0.ecq9kjk.mongodb.net/?retryWrites=true&w=majority")
+            # cut this 'db = client.test'
+            db=client['review_scrapper']
+            review_coll=db['review_scrapper_data']
+            review_coll.insert_many(reviews)
+
+
+
             return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])
         except Exception as e:
             logging.info(e)
