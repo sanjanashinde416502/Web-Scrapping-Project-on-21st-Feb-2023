@@ -10,16 +10,16 @@ This project is a Python-based web scraping tool that allows you to extract prod
 ## Installation
 To use this project, follow the steps below:
 
-### 1.Clone the repository to your local machine:
+### 1. Clone the repository to your local machine:
 https://github.com/sanjanashinde416502/Web-Scrapping-Project-on-21st-Feb-2023.git
 
-### 2.Navigate to the project directory:
+### 2. Navigate to the project directory:
 cd review-scrapper-aws-main
 
-### 3.Install the required dependencies:
+### 3. Install the required dependencies:
 pip install -r requirements.txt
 
-### 4.You're all set! Now you can start using the Flipkart Product Web Scraping tool.
+### 4. You're all set! Now you can start using the Flipkart Product Web Scraping tool.
 
 ## Usage
 To scrape product data from Flipkart, you need to provide the URL of the Flipkart product page you want to scrape. Modify the url variable in the main.py file with the desired URL.
