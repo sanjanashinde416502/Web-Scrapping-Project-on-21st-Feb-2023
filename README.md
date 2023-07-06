@@ -1,5 +1,5 @@
 # Flipkart Product Web Scraping
-This project is a Python-based web scraping tool that allows you to extract product data from Flipkart, one of the leading e-commerce websites. It utilizes the power of Python libraries such as BeautifulSoup and Requests to scrape product details like name, price, ratings, and reviews from Flipkart's web pages.
+This project is a Python-based web scraping tool that allows you to extract product data from Flipkart, one of the leading e-commerce websites. It utilizes the power of Python libraries such as BeautifulSoup and Requests to scrape product details like product name, customer name, ratings, and comments from Flipkart's web pages.
 
 ### Table of Contents
 - Installation
