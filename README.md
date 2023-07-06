@@ -11,10 +11,10 @@ This project is a Python-based web scraping tool that allows you to extract prod
 To use this project, follow the steps below:
 
 ### 1.Clone the repository to your local machine:
-git clone https://github.com/your-username/flipkart-product-web-scraping.git
+https://github.com/sanjanashinde416502/Web-Scrapping-Project-on-21st-Feb-2023.git
 
 ### 2.Navigate to the project directory:
-cd flipkart-product-web-scraping
+cd review-scrapper-aws-main
 
 ### 3.Install the required dependencies:
 pip install -r requirements.txt
@@ -26,12 +26,12 @@ To scrape product data from Flipkart, you need to provide the URL of the Flipkar
 url = "https://www.flipkart.com/some-product-page"
 
 After modifying the URL, run the main.py file:
-python main.py
+python app.py
 
 The script will fetch the product details and save them to a CSV file named products.csv.
 
 ## Features
-- Scrapes product details such as name, price, ratings, and reviews from Flipkart.
+- Scrapes product details such as product name, customer name, ratings, and comments from Flipkart.
 - Supports scraping multiple pages by automatically navigating through pagination.
 - Saves the scraped data to a CSV file for further analysis or usage.
   
