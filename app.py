@@ -82,21 +82,26 @@ def index():                                      # from class that we called ac
             
             client = pymongo.MongoClient("mongodb+srv://shindesanjana2003:shindesanjana2003@cluster0.ecq9kjk.mongodb.net/?retryWrites=true&w=majority")
             # cut this 'db = client.test'
-            db=client['review_scrapper']
-            review_coll=db['review_scrapper_data']
-            review_coll.insert_many(reviews)
+            db=client['review_scrapper'] # here we are creating data base and giving it's name as 'review-scrapper'
+            review_coll=db['review_scrapper_data']  # here we are creating collections.
+            review_coll.insert_many(reviews) # here we are inserting reviews .in reviews all reviews are stored . for running 
+                                         # just go in terminal and write python app.py
 
 
 
-            return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])
+            return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])  # here we are calling 'result.html' & 
+                                                                  # separating each reviews and appending it 
         except Exception as e:
             logging.info(e)
-            return 'something is wrong'
+            return 'something is wrong'  # it will return this if you entered somthing that product does'nt exists
     # return render_template('results.html')
 
     else:
-        return render_template('index.html')
+        return render_template('index.html') # if 'if statement' fells to excecute means method is not 'post' then it will return
+                                           # 'index.html'
 
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0" ,port=8000)
+
+    
